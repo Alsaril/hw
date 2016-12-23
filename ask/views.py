@@ -3,6 +3,7 @@ import json
 from django.contrib.auth import authenticate
 from django.contrib.auth import login as auth_login
 from django.contrib.auth import logout as auth_logout
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.core.urlresolvers import reverse
@@ -105,9 +106,8 @@ def question(request, id=0):
                                popular_tags=Tag.objects.popular_tags(), form=form))
 
 
+@login_required(login_url='/login')
 def ask(request):
-    if not request.user.is_authenticated():
-        return HttpResponseRedirect('/login')
     if request.POST:
         p = Profile.objects.get(user=request.user)
         form = QuestionForm(request.POST, author=p)
@@ -180,7 +180,10 @@ def register(request):
             email = form.cleaned_data.get('email')
             password = form.cleaned_data.get('password')
             avatar = avatar_form.cleaned_data.get('avatar')
-            user = User.objects.create_user(username=username, email=email, password=password)
+            firstname = form.cleaned_data.get('firstname')
+            lastname = form.cleaned_data.get('lastname')
+            user = User.objects.create_user(username=username, email=email, password=password, first_name=firstname,
+                                            last_name=lastname)
             profile = Profile(user=user, avatar=avatar)
             profile.save()
             us = authenticate(username=username, password=password)

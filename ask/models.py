@@ -1,8 +1,7 @@
 import datetime
 
-from django.db import models
-
 from django.contrib.auth.models import User
+from django.db import models
 
 
 class QuestionModel(models.Manager):
@@ -38,6 +37,9 @@ class Question(models.Model):
     tags = models.ManyToManyField(Tag)
     picture = models.ImageField(upload_to='uploads/', default='uploads/default_avatar.jpg')
     objects = QuestionModel()
+
+    def __str__(self):
+        return self.title
 
 
 class Answer(models.Model):

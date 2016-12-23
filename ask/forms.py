@@ -1,6 +1,7 @@
 from django import forms
-from .models import Question, Profile, Answer
 from django.contrib.auth.models import User
+
+from .models import Question, Profile, Answer
 
 
 class LoginForm(forms.Form):
@@ -12,14 +13,24 @@ class LoginForm(forms.Form):
 
 
 class RegisterForm(forms.Form):
-    username = forms.CharField(widget=forms.TextInput(attrs={'class': 'input inputlogin'}), label=u'Логин', max_length=30)
+    username = forms.CharField(widget=forms.TextInput(attrs={'class': 'input inputlogin'}), label=u'Логин',
+                               max_length=30)
     email = forms.EmailField(widget=forms.TextInput(attrs={'class': 'input inputlogin'}), label='E-mail', max_length=30)
-    password = forms.CharField(widget=forms.PasswordInput(attrs={'class': 'input inputlogin'}), label=u'Пароль', max_length=30)
-    repeat_password = forms.CharField(widget=forms.PasswordInput(attrs={'class': 'input inputlogin'}), label=u'Повторите пароль', max_length=30)
+    password = forms.CharField(widget=forms.PasswordInput(attrs={'class': 'input inputlogin'}), label=u'Пароль',
+                               max_length=30)
+    repeat_password = forms.CharField(widget=forms.PasswordInput(attrs={'class': 'input inputlogin'}),
+                                      label=u'Повторите пароль', max_length=30)
+    firstname = forms.CharField(widget=forms.TextInput(attrs={'class': 'input inputlogin'}), label=u'Имя',
+                                max_length=30)
+    lastname = forms.CharField(widget=forms.TextInput(attrs={'class': 'input inputlogin'}), label=u'Фамилия',
+                               max_length=30)
 
     def clean_username(self):
         username = self.cleaned_data.get('username')
-        if User.objects.filter(username=username).exists():
+        if len(username) < 8:
+            self._errors["username"] = self.error_class([u'Имя должно содержать хотя бы 8 символов'])
+            del self.cleaned_data["username"]
+        elif User.objects.filter(username=username).exists():
             self._errors["username"] = self.error_class([u'Пользователь с таким именем уже существует'])
             del self.cleaned_data["username"]
         return username
@@ -32,8 +43,8 @@ class RegisterForm(forms.Form):
             self._errors["password"] = self.error_class([u'Не введен пароль'])
         elif password != repeat_password:
             self._errors["password"] = self.error_class([u'Пароли не совпадают'])
-        elif len(password) < 6:
-            self._errors["password"] = self.error_class([u'Введите пароль длиной не менее 6 символов'])
+        elif len(password) < 8:
+            self._errors["password"] = self.error_class([u'Введите пароль длиной не менее 8 символов'])
 
         return cleaned_data
 
@@ -63,7 +74,7 @@ class QuestionForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         self.author = kwargs.pop('author', None)
-        super(QuestionForm, self).__init__(*args,  **kwargs)
+        super(QuestionForm, self).__init__(*args, **kwargs)
 
     def save(self, commit=True):
         obj = super(QuestionForm, self).save(commit=False)
@@ -77,7 +88,6 @@ class PictureForm(forms.ModelForm):
     class Meta:
         model = Question
         fields = ['picture']
-
 
 
 class AnswerForm(forms.Form):

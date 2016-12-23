@@ -1,17 +1,17 @@
 {% if show %}
-<div class="page_wrapper">
-    <div class="page_container">
-        {% for number in numbers %}
-        <div class="page">
-            {% if number.dots %}
-            <a href="{{ url }}?page={{ number.n }}">...</a>
-            {% elif number.n == sel %}
-            <div class="sel">{{ number.n }}</div>
-            {% else %}
-            <a href="{{ url }}?page={{ number.n }}">{{ number.n }}</a>
-            {% endif %}
+    <div class="page_wrapper">
+        <div class="page_container">
+            {% for number in numbers %}
+                <div class="page">
+                    {% if number.dots %}
+                        <a href="{{ url }}?page={{ number.n }}">...</a>
+                    {% elif number.n == sel %}
+                        <div class="sel">{{ number.n }}</div>
+                    {% else %}
+                        <a href="{{ url }}?page={{ number.n }}">{{ number.n }}</a>
+                    {% endif %}
+                </div>
+            {% endfor %}
         </div>
-        {% endfor %}
     </div>
-</div>
 {% endif %}

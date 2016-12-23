@@ -18,9 +18,11 @@
                 <span class="author">Автор: <a href="#">{{ question.author.username }}</a></span>
                 <span class="date">{{ question.added_at }}</span>
                 {% if user.is_authenticated %}
-                    <img class="plus" id="l{{ question.id }}" src="{% static "ask/img/plus.png" %}" width="20" height="16"/>
+                    <img class="plus" id="l{{ question.id }}" src="{% static "ask/img/plus.png" %}" width="20"
+                         height="16"/>
                     <span class="number" id="n{{ question.id }}">{{ question.rating }}</span>
-                    <img class="minus" id="d{{ question.id }}" src="{% static "ask/img/minus.png" %}" width="20" height="16"/>
+                    <img class="minus" id="d{{ question.id }}" src="{% static "ask/img/minus.png" %}" width="20"
+                         height="16"/>
                 {% else %}
                     <span class="number" id="rating{{ question.id }}">Рейтинг: {{ question.rating }}</span>
                 {% endif %}

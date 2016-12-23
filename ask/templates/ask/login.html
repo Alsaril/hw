@@ -1,28 +1,28 @@
 {% extends "ask/base.html" %}
 
 {% block main %}
-<div class="content contentask">
-    <h1>Авторизация</h1>
-     <span class="error">{{ error }}</span>
+    <div class="content contentask">
+        <h1>Авторизация</h1>
+        <span class="error">{{ error }}</span>
 
-            <form name="login" method="post" action="/login">
-                   {% csrf_token %}
-                    {% if request.GET.next %}
-                        <input type='hidden' id="redirect" name='redirect' value='{{ request.GET.next }}' />
-                    {% else %}
-                         <input type='hidden' id="redirect" name='redirect' value='/' />
-                    {% endif %}
+        <form name="login" method="post" action="/login">
+            {% csrf_token %}
+            {% if request.GET.next %}
+                <input type='hidden' id="redirect" name='redirect' value='{{ request.GET.next }}'/>
+            {% else %}
+                <input type='hidden' id="redirect" name='redirect' value='/'/>
+            {% endif %}
 
-                   {%  for field in form.visible_fields %}
-                         {% if field.errors %}
-                            <span class="error">Поле обязательно</span>
-                       {% endif %}
-                        <div>
-                            <label class = "fieldname" for="{{ field.id_for_label }}"> {{ field.label }} </label>
-                            {{ field }}
-                        </div>
-                {%  endfor %}
-                    <input class="button" type="submit" value="Войти">
-            </form>
-</div>
+            {% for field in form.visible_fields %}
+                {% if field.errors %}
+                    <span class="error">Поле обязательно</span>
+                {% endif %}
+                <div>
+                    <label class="fieldname" for="{{ field.id_for_label }}"> {{ field.label }} </label>
+                    {{ field }}
+                </div>
+            {% endfor %}
+            <input class="button" type="submit" value="Войти">
+        </form>
+    </div>
 {% endblock %}
