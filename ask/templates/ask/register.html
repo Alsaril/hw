@@ -1,0 +1,27 @@
+{% extends "ask/base.html" %}
+
+{% block main %}
+    <div class="content contentask" style="padding-left: 50px">
+        <h1>Регистрация</h1>
+        <form action="/register" class="form_question" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+
+            {% for field in form.visible_fields %}
+                <span class="error"> {{ field.errors }}</span>
+                <div>
+                    <label class="fieldname" for="{{ field.id_for_label }}"> {{ field.label }} </label>
+                    {{ field }}
+                </div>
+            {% endfor %}
+
+            {% for f in avatar_form.visible_fields %}
+                {{ f }}
+            {% endfor %}
+
+            <div>
+                <input class="button" type="submit" style="margin-top: 15px" value="Создать аккаунт">
+            </div>
+
+        </form>
+    </div>
+{% endblock %}

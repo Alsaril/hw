@@ -1,0 +1,53 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>AskMe</title>
+    <link rel="stylesheet" href="{% static "ask/css/reset.css" %}"/>
+    <link rel="stylesheet" href="{% static "ask/css/style.css" %}"/>
+</head>
+<body>
+<div class="wrapper">
+    <header>
+        <a href="/"><img class="logo" src="{% static "ask/img/logo.png" %}" width="200" height="75"/></a>
+        <input type="text" class="search" placeholder="Поиск">
+        <span class="ask"><a href="{% url 'ask' %}">Ask!</a></span>
+
+        <div class="profile">
+            {% if user.is_authenticated %}
+                <img class="avatarprofile" src="{{ request.user.profile.avatar.url }}" width="50" height="50"/>
+                <span class="logname">{{ request.user.username }}</span>
+                <a href="/logout" class="logout">Выход</a>
+            {% else %}
+                <div><a href="/login" class="login" style="margin-left: 200px;">Войти</a></div>
+                <div><a href="/register" class="create_account" style="margin-left: 120px;">Создать
+                    аккаунт</a></div>
+            {% endif %}
+        </div>
+    </header>
+
+    <main>
+        {% block main %}{% endblock %}
+        <aside>
+            <div class="tags">
+                <h1>Популярные теги</h1>
+                {% for tag in popular_tags %}
+                    <a href="{% url 'tag' tag=tag.name sort='new' %}">{{ tag.name }}</a>
+                {% endfor %}
+            </div>
+
+            <div class="members">
+                <h1>Лучшие пользователи</h1>
+                <a href="#">abcde</a>
+                <a href="#">tank93</a>
+                <a href="#">eutro</a>
+                <a href="#">Roman</a>
+            </div>
+        </aside>
+    </main>
+</div>
+<script src="{% static "ask/js/jquery-2.2.4.min.js" %}"></script>
+<script src="{% static "ask/js/sc.js" %}"></script>
+</body>
+</html>

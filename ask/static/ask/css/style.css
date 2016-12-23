@@ -1,0 +1,456 @@
+body {
+    background-color: #fbfafa;
+    color: #2e2e2e;
+}
+
+a:hover, .ask a:hover {
+    color: #000;
+}
+
+a {
+    text-decoration: none;
+}
+
+.wrapper {
+    width: 1000px;
+    margin: auto;
+}
+
+header {
+    display: block;
+    height: 116px;
+    width: 996px;
+    border: 1px solid #ecebeb;
+    margin-top: 3px;
+    background-color: #fff;
+    top: 0;
+}
+
+.logo {
+    display: block;
+    float: left;
+    margin: 14px 0 28px 28px;
+}
+
+.search {
+    width: 300px;
+    border: 1px solid #ecebeb;
+    float: left;
+    font-size: 18px;
+    padding-top: 5px;
+    padding-left: 5px;
+    padding-bottom: 5px;
+    margin: 0;
+    margin-top: 38px;
+    margin-left: 40px;
+}
+
+.ask a {
+    height: 27px;
+    border: 1px solid #ecebeb;
+    display: block;
+    float: left;
+    font-size: 24px;
+    color: rgb(52, 52, 52);
+    margin-top: 38px;
+    margin-left: -1px;
+    padding-top: 4px;
+    padding-left: 6px;
+    padding-right: 6px;
+    font-family: "ArialRegular";
+}
+
+.profile {
+    margin: 30px 0px 0 0;
+}
+
+.avatarprofile {
+    display: inline;
+    float: left;
+    margin: 0 15px 5px 60px;
+}
+
+.logname {
+    font-size: 24px;
+    color: rgb(52, 52, 52);
+    font-family: "ArialItalic";
+    margin-bottom: 10px;
+    margin-top: 5px;
+    margin-left: 5px;
+    block: inline;
+}
+
+.break {
+    float: none;
+}
+
+.logout, .goToProfile {
+    font-size: 16px;
+    color: rgb(52, 52, 52);
+    float: left;
+    margin-right: 10px;
+    margin-top: 10px;
+    font-family: "ArialRegular";
+}
+
+.login, .create_account {
+    font-size: 18px;
+    color: black;
+    float: right;
+    margin-right: 5px;
+    font-family: "ArialRegular";
+    line-height: 1.5;
+    padding-top: 10px;
+
+}
+
+aside {
+    width: 300px;
+    display: block;
+    float: right;
+    border: 1px solid #ecebeb;
+    margin: 50px 0 0 0;
+    padding: 10px;
+    background-color: white;
+}
+
+.tags {
+    display: block;
+    width: 300px;
+    margin-bottom: 50px;
+}
+
+.tags h1 {
+    font-size: 28px;
+    display: block;
+    font-family: "ArialRegular";
+    margin: 0 0 10px 10px;
+}
+
+.members {
+    diplay: block;
+    width: 300px;
+    margin-bottom: 20px;
+}
+
+.members h1 {
+    font-size: 28px;
+    display: block;
+    font-family: "ArialRegular";
+    margin: 0 0 10px 5px;
+    white-space: nowrap;
+}
+
+.members a, .tags a {
+    display: inline;
+    line-height: 40px;
+    padding-left: 10px;
+    font-size: 22px;
+    font-family: "ArialRegular";
+    text-decoration: none;
+    color: #427ae2;
+}
+
+.members a:hover, .tags a:hover {
+    color: black;
+}
+
+main {
+    width: 1000px;
+    display: block;
+    padding-top: 40px;
+}
+
+.content {
+    width: 650px;
+    display: block;
+    float: left;
+    margin-bottom: 100px;
+}
+
+.content h1 {
+    font-size: 32px;
+    display: block;
+    font-family: "ArialRegular";
+    margin: 0 0 19px 10px;
+}
+
+.block {
+    width: 624px;
+    display: block;
+    border: 1px solid #ecebeb;
+    margin: 18px 0 10px 0;
+    padding: 10px;
+    background-color: white;
+}
+
+.block h1 {
+    font-size: 24px;
+    display: block;
+    font-family: "ArialRegular";
+    color: #427ae2;
+    margin-bottom: 10px;
+}
+
+.content h\\2 {
+    font-size: 24px;
+    display: block;
+    font-family: "ArialRegular";
+    margin-top: 20px;
+
+}
+
+.block p {
+    font-size: 16px;
+    display: block;
+    font-family: "ArialRegular";
+    line-height: 1.5;
+}
+
+.avatar {
+    display: block;
+    float: left;
+    margin: 0 15px 5px 0;
+}
+
+.clear {
+    clear: both;
+}
+
+.infoline {
+    display: block;
+    margin-top: 10px;
+}
+
+.num_of_answers, .author, .tags_list, .date {
+    font-family: "ArialRegular";
+    font-size: 14px;
+    margin-right: 20px;
+}
+
+.checkbox {
+    font-family: "ArialRegular";
+    font-size: 14px;
+}
+
+.tags_list {
+    margin-bottom: 10px;
+}
+
+.plus:hover, .minus:hover {
+    cursor: pointer;
+    opacity: 0.4;
+}
+
+.plus, .minus {
+    float: right;
+    width: 24px;
+    height: 16px;
+}
+
+.number {
+    margin-left: 7px;
+    margin-right: 7px;
+    font-size: 18px;
+    float: right;
+    font-family: Arial;
+}
+
+.page_container {
+    display: inline-block;
+}
+
+.page_wrapper {
+    text-align: center;
+}
+
+.page {
+    display: block;
+    float: left;
+    margin-right: 10px;
+    margin-top: 10px;
+    padding: 5px;
+    border: 1px solid #ecebeb;
+}
+
+.page a {
+    font-size: 18px;
+    font-family: "ArialRegular";
+    text-align: center;
+}
+
+.page .sel {
+    font-size: 18px;
+    font-family: "ArialRegular";
+    text-align: center;
+    color: #000;
+}
+
+.page a {
+    font-family: "ArialRegular";
+    color: #2e2e2e;
+}
+
+.page:hover a {
+    color: #427ae2;
+}
+
+.question_content {
+    width: 624px;
+    display: block;
+    margin: 0px 0 10px 0;
+    padding: 10px;
+    background-color: white;
+    border: 1px solid #ecebeb;
+}
+
+.question_content p {
+    font-size: 16px;
+    line-height: 1.5;
+    display: block;
+    font-family: "ArialRegular";
+}
+
+.question_content h1 {
+    font-size: 24px;
+    display: block;
+    font-family: "ArialRegular";
+    color: #427ae2;
+    margin-bottom: 10px;
+}
+
+.form_question {
+    margin: 0;
+    display: block;
+}
+
+.text_area {
+    min-height: 200px;
+    min-width: 624px;
+    max-width: 624px;
+    max-height: 200px;
+    margin: 0 0 15px 10px;
+    color: #000;
+    padding: 5px 12px;
+    background-color: #fff;
+    border: 1px solid #ecebeb;
+    font-size: 14px;
+}
+
+.write_answer {
+    min-width: 620px;
+    max-width: 620px;
+    border: 1px solid #ecebeb;
+    margin-left: 0;
+    margin-top: 10px;
+}
+
+.contentask h1 {
+    display: block;
+    font-family: "ArialRegular";
+    font-size: 32px;
+    margin: 5px 0 15px 10px;
+}
+
+.contentask b {
+    display: block;
+    font-family: "ArialRegular";
+    font-size: 18px;
+    margin: 10px 0 5px 10px;
+}
+
+.input {
+    display: block;
+    padding: 5px 12px;
+    font-size: 14px;
+    width: 500px;
+    margin: 0 0 15px 10px;
+    color: #000;
+    background-color: #fff;
+    background-image: none;
+    border: 1px solid #ecebeb;
+}
+
+.inputlogin {
+    width: 200px;
+}
+
+.inputfile {
+    border: none;
+    padding-left: 0;
+    padding-top: 0;
+}
+
+.button {
+    width: 150px;
+    height: 35px;
+    border-radius: 1px;
+    background-color: #5f5f5f;
+    font-family: "ArialRegular";
+    border: 1px solid #ecebeb;
+    color: #ffffff;
+    font-size: 14px;
+    display: block;
+    cursor: pointer;
+    padding: 0;
+    text-align: center;
+    line-height: 35px;
+    text-decoration: none;
+    margin-left: 10px;
+    float: left;
+}
+
+.button:hover {
+    background-color: #4b8872;
+}
+
+.block a, .question_content a {
+    color: #427ae2;
+}
+
+.block a:hover, .question_content a:hover {
+    text-decoration: underline;
+}
+
+.contentask span, .error {
+    display: block;
+    font-family: "ArialRegular";
+    font-size: 18px;
+    margin: 0 0 15px 10px;
+    color: crimson;
+}
+
+.fieldname {
+    display: block;
+    font-family: "ArialRegular";
+    font-size: 18px;
+    margin: 5px 20px 5px 10px;
+}
+
+.blockanswer {
+    border: none;
+    padding: 0;
+    background-color: #fbfafa;
+    font-family: "ArialRegular";
+    font-size: 24px;
+}
+
+.sort {
+    font-family: "ArialRegular";
+    margin: 0 0 19px 10px;
+}
+
+.selected_sort {
+    color: black;
+    cursor: default;
+}
+
+.unselected_sort {
+    cursor: pointer;
+    color: #427ae2;
+    text-decoration: none;
+}
+
+.sort a {
+
+}

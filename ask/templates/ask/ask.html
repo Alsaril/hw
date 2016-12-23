@@ -1,0 +1,25 @@
+{% extends "ask/base.html" %}
+{% load staticfiles %}
+
+{% block main %}
+    <div class="content contentask">
+        <h1>Создание вопроса</h1>
+        <form action="/ask" class="form_question" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+
+            {% for field in form.visible_fields %}
+                {% if field.errors %}
+                    <span class="error">Поле обязательно</span>
+                {% endif %}
+                <div>
+                    <label class="fieldname" for="{{ field.id_for_label }}"> {{ field.label }} </label>
+                    {{ field }}
+                </div>
+            {% endfor %}
+
+            {{ picture_form }}
+            <input class="button" type="submit" value="Отправить">
+
+        </form>
+    </div>
+{% endblock %}

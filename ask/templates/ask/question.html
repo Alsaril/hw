@@ -1,0 +1,65 @@
+{% extends "ask/base.html" %}
+{% load static %}
+
+{% block main %}
+    <div class="content ">
+        <div class="question_content">
+            <img class="avatar" src="{{ question.picture.url }}" width="80" height="80"/>
+            <h1> {{ question.title }}</h1>
+            <p> {{ question.text }}</p>
+            <div class="infoline">
+                {% if question.tags.all.exists %}
+                    <div class="tags_list">Теги:
+                        {% for tag in question.tags.all %}
+                            <a href="{% url 'tag' tag.name 'new' %}">{{ tag.name }}</a>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+                <span class="author">Автор: <a href="#">{{ question.author.username }}</a></span>
+                <span class="date">{{ question.added_at }}</span>
+                {% if user.is_authenticated %}
+                    <img class="plus" id="like" src="{% static "ask/img/plus.png" %}" width="20" height="16"
+                         onclick="Like({{ question.id }}, 1);"/>
+                    <span class="number" id="rating{{ question.id }}">{{ question.rating }}</span>
+                    <img class="minus" id="dislike" src="{% static "ask/img/minus.png" %}" width="20" height="16"
+                         onclick="Like({{ question.id }}, 0);"/>
+                {% else %}
+                    <span class="number" id="rating{{ question.id }}">Рейтинг: {{ question.rating }}</span>
+                {% endif %}
+
+            </div>
+        </div>
+
+
+        <h1>Ответы</h1>
+
+        {% for answer in list %}
+            <div class="block">
+                <a name="{{ answer.id }}"></a>
+                <img class="avatar" src="{{ answer.author.profile.avatar.url }}" width="80" height="80"/>
+                <p>{{ answer.text }}</p>
+                <div class="clear"></div>
+                <div class="infoline">
+                    <span class="author">Автор: <a href="#"> {{ answer.author.username }}</a></span>
+                    <span class="date"> {{ answer.added_at }}</span>
+                    <span class="checkbox"><input type="checkbox" name="correct">Правильный ответ</span>
+                </div>
+            </div>
+        {% endfor %}
+
+        {% include "ask/page_numbers.html" %}
+
+        <form name="answer" method="post">
+            {% csrf_token %}
+            <div class="block blockanswer">
+                <b style="margin-left:15px">Введите ответ</b>
+                {% if form.errors %}
+                    <span class="error" style="margin-top: 10px">Поле обязательно</span>
+                {% endif %}
+                {{ form.text }}
+                <input class="button" type="submit" value="Отправить">
+            </div>
+        </form>
+    </div>
+
+{% endblock %}

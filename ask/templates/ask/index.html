@@ -1,0 +1,35 @@
+{% extends "ask/base.html" %}
+{% load staticfiles %}
+
+{% block main %}
+<div class="content">
+    <h1>{{ title }}</h1>
+
+    <div class="sort">Сортировка:
+        <a class="{% if sort == 'new' %}selected_sort{% else %}unselected_sort{% endif %}"
+           href="{{ url_new }}">по времени</a>
+        <a class="{% if sort == 'hot' %}selected_sort{% else %}unselected_sort{% endif %}"
+           href="{{ url_hot }}">по рейтингу</a>
+    </div>
+
+    {% for question in list %}
+    <div class="block">
+        <img class="avatar" src="{{ question.picture.url }}" width="80" height="80"/>
+        <h1><a href="{% url 'question' question.pk %}">{{ question.title }}</a></h1>
+        <p>{{ question.text }}</p>
+        <div class="infoline">
+            <div class="tags_list">Теги: {% for tag in question.tags.all %}<a href="{% url 'tag' tag.name 'new' %}">{{ tag.name }}</a> {% endfor %}
+            </div>
+            <span class="num_of_answers"><a href="{% url 'question' question.pk %}">Ответы</a></span>
+            <span class="author">Автор: {{ question.author }}</span>
+            <span class="date">{{ question.date }}</span>
+            <img class="plus" id="p{{question.pk}}" src="{% static "ask/img/plus.png" %}"/>
+            <span class="number" id="n{{question.pk}}">{{ question.rating }}</span>
+            <img class="minus" id="m{{question.pk}}" src="{% static "ask/img/minus.png" %}"/>
+        </div>
+    </div>
+    {% endfor %}
+
+   {% include "ask/page_numbers.html" %}
+</div>
+{% endblock %}
