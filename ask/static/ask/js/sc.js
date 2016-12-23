@@ -1,4 +1,4 @@
-document.onload = function () {
+window.onload = function () {
 
     $.ajaxSetup({
         beforeSend: function (xhr, settings) {

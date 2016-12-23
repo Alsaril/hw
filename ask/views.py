@@ -10,7 +10,7 @@ from django.http.response import HttpResponseRedirect, HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
 
 from ask.forms import LoginForm, RegisterForm, AvatarForm, AnswerForm, QuestionForm, PictureForm
-from ask.models import Question, Answer, Tag, Profile
+from ask.models import Question, Answer, Tag, Profile, Like
 
 
 class N:
@@ -200,14 +200,35 @@ def logout(request):
 
 
 def rate(request):
-    response_data = {}
+    try:
+        q_id = int(request.POST['tp'][1:])
+        question = Question.objects.get(pk=q_id)
+        type = request.POST['tp'][0] == 'l'
+        user = request.user
+        like = Like.objects.filter(user=user, question=question).first()
 
-    if request.POST and 'tp' in request.POST:
-        id = int(request.POST['tp'][1:])
-        q = Question.objects.get(pk=id)
-        q.rating += 1 if request.POST['tp'][0] == 'p' else -1
-        q.save()
-        response_data['new'] = q.rating
+        if like is None:
+            if type:
+                Like.objects.create(question=question, user=user, like=True)
+                question.rating += 1
+            else:
+                Like.objects.create(question=question, user=user, like=False)
+                question.rating -= 1
 
-        return HttpResponse(json.dumps(response_data), content_type="application/json")
-    return HttpResponse(json.dumps(response_data), content_type="application/json")
+        elif like.like != type:
+            if like.like:
+                question.rating -= 1
+            else:
+                question.rating += 1
+            like.delete()
+
+        question.save()
+        return HttpResponse(json.dumps({
+            'status': 'OK',
+            'new': question.rating,
+        }), content_type='application/json')
+    except Exception as e:
+        return HttpResponse(json.dumps({
+            'status': 'error',
+            'info': str(e),
+        }), content_type='application/json')
