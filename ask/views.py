@@ -9,6 +9,7 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.core.urlresolvers import reverse
 from django.http.response import HttpResponseRedirect, HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
+from django.views.generic.base import View
 
 from ask.forms import LoginForm, RegisterForm, AvatarForm, AnswerForm, QuestionForm, PictureForm
 from ask.models import Question, Answer, Tag, Profile, Like
@@ -81,10 +82,20 @@ def tag(request, tag, sort):
                            url_hot='' if sort == 'hot' else reverse('tag', kwargs={'tag': tag, 'sort': 'hot'})))
 
 
-def question(request, id=0):
-    question = get_object_or_404(Question, pk=id)
-    answers = Answer.objects.filter(question=question)
-    if request.POST:
+class QuestionView(View):
+    def get(self, request, id):
+        question = get_object_or_404(Question, pk=id)
+        answers = Answer.objects.filter(question=question)
+        form = AnswerForm()
+        return render(request, 'ask/question.html',
+                      paginate(reverse('question', kwargs={'id': id}),
+                               answers, request.GET.get('page', 1),
+                               5, question=question,
+                               popular_tags=Tag.objects.popular_tags(), form=form))
+
+    def post(self, request, id):
+        question = get_object_or_404(Question, pk=id)
+        answers = Answer.objects.filter(question=question)
         form = AnswerForm(request.POST)
         if form.is_valid() and request.user.is_authenticated():
             answer = form.save(question, request.user)
@@ -96,14 +107,6 @@ def question(request, id=0):
                                    answers, request.GET.get('page', 1),
                                    5, question=question,
                                    popular_tags=Tag.objects.popular_tags(), form=form))
-
-    else:
-        form = AnswerForm()
-        return render(request, 'ask/question.html',
-                      paginate(reverse('question', kwargs={'id': id}),
-                               answers, request.GET.get('page', 1),
-                               5, question=question,
-                               popular_tags=Tag.objects.popular_tags(), form=form))
 
 
 @login_required(login_url='/login')
@@ -137,10 +140,6 @@ def ask(request):
         form = QuestionForm()
         picture_form = PictureForm()
         return render(request, 'ask/ask.html', {'form': form, 'picture_form': picture_form})
-
-
-def register(request):
-    return render(request, 'ask/register.html', {'popular_tags': Tag.objects.popular_tags()})
 
 
 def login(request):
